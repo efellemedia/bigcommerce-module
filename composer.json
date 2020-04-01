@@ -1,0 +1,16 @@
+{
+    "name": "efelle/bigcommerce",
+    "require": {
+    	"firebase/php-jwt": "5.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Bigcommerce\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Bigcommerce\\Tests\\": "tests/"
+        }
+    }
+}
