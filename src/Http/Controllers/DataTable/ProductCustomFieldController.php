@@ -11,26 +11,26 @@
 
 namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
-use Modules\Bigcommerce\Models\Category;
+use Modules\Bigcommerce\Models\Product;
+use Modules\Bigcommerce\Models\ProductCustomField;
 use App\Http\Controllers\DataTableController;
 
-class CategoryController extends DataTableController
+class ProductCustomFieldController extends DataTableController
 {
     public function builder()
     {
         if (request()->route('product')) {
-            return Product::find(request()->route('product'))->categories()->getQuery();
+            return Product::find(request()->route('product'))->customfields()->getQuery();
         } else {
-            return Category::query();
+            return ProductCustomField::query();
         }
     }
 
     public function getDisplayableColumns()
     {
         return [
-            'image_url',
             'name',
-            'description',
+            'value'
         ];
     }
 
@@ -38,7 +38,7 @@ class CategoryController extends DataTableController
     {
         return [
             'name',
-            'description',
+            'value'
         ];
     }
 
@@ -46,15 +46,15 @@ class CategoryController extends DataTableController
     {
         return [
             'name',
+            'value'
         ];
     }
 
     public function getCustomColumnNames()
     {
         return [
-            'image_url'   => ' ',
-            'name'        => 'Name',
-            'description' => 'Description',
+            'name'  => 'Name',
+            'value' => 'Value',
         ];
     }
 }

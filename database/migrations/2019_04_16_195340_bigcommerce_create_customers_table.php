@@ -14,9 +14,9 @@ class BigCommerceCreateCustomersTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_customers', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('user_id')->nullable();
-            $table->unsignedInteger('group_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('group_id');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('email');

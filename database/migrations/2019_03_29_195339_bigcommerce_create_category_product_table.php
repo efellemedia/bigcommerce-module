@@ -14,8 +14,8 @@ class BigCommerceCreateCategoryProductTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_category_product', function (Blueprint $table) {
-            $table->unsignedInteger('category_id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('product_id');
 
             // Indexes..
             $table->primary(['category_id', 'product_id']);

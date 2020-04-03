@@ -15,7 +15,7 @@ class BigCommerceCreateProductsTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_products', function (Blueprint $table) {
-            $table->unsignedInteger('id')->unique();
+            $table->unsignedBigInteger('id')->unique();
             $table->string('name');
             $table->string('slug');
             $table->text('description')->nullable();

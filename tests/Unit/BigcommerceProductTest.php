@@ -11,6 +11,7 @@
 
 namespace Modules\Bigcommerce\Tests\Unit;
 
+use Illuminate\Support\Str;
 use Tests\Foundation\TestCase;
 use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Models\Category;
@@ -35,7 +36,7 @@ class BigcommerceProductTest extends TestCase
     public function has_a_slug_property()
     {
         $name    = 'Awesome Socks';
-        $slug    = str_slug($name);
+        $slug    = Str::slug($name);
         $product = factory(Product::class)->create(['name' => $name, 'slug' => $slug]);
 
         $this->assertEquals($slug, $product->slug);

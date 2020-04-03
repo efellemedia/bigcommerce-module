@@ -14,8 +14,8 @@ class BigCommerceCreateCategoriesTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_categories', function (Blueprint $table) {
-            $table->unsignedInteger('id')->unique();
-            $table->unsignedInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('id')->unique();
+            $table->unsignedBigInteger('parent_id')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('image_url')->nullable();

@@ -12,13 +12,20 @@
 namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
 use Modules\Bigcommerce\Models\Product;
+use Modules\Bigcommerce\Models\Category;
 use App\Http\Controllers\DataTableController;
 
 class ProductController extends DataTableController
 {
     public function builder()
     {
-        return Product::query();
+        if (request()->route('category')) {
+            return Category::find(request()->route('category'))->products()->getQuery();
+        } elseif (request()->route('product')) {
+            return Product::find(request()->route('product'))->related()->getQuery();
+        } else {
+            return Product::query();
+        }
     }
 
     public function getDisplayableColumns()
@@ -27,7 +34,6 @@ class ProductController extends DataTableController
             'name',
             'sku',
             'is_featured',
-            'is_visible',
         ];
     }
 
@@ -37,7 +43,6 @@ class ProductController extends DataTableController
             'name',
             'sku',
             'is_featured',
-            'is_visible',
         ];
     }
 
@@ -47,7 +52,6 @@ class ProductController extends DataTableController
             'name',
             'sku',
             'is_featured',
-            'is_visible',
         ];
     }
 
@@ -57,7 +61,6 @@ class ProductController extends DataTableController
             'name'        => 'Name',
             'sku'         => 'SKU',
             'is_featured' => ' ',
-            'is_visible'  => ' ',
         ];
     }
 }

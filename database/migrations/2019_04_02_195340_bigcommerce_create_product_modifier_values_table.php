@@ -14,8 +14,8 @@ class BigCommerceCreateProductModifierValuesTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_modifier_values', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('modifier_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('modifier_id');
             $table->string('label');
             $table->boolean('is_default');
             $table->text('value_data')->nullable();

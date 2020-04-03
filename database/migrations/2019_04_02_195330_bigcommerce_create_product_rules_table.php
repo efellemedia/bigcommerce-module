@@ -14,8 +14,8 @@ class BigCommerceCreateProductRulesTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_rules', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
             $table->string('image_url');
             $table->boolean('enabled');
             $table->boolean('stop');

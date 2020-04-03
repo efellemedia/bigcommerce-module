@@ -2,7 +2,7 @@
 
 namespace Modules\Bigcommerce\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -12,28 +12,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        'App\Events\ServingFusion' => [
+            'Modules\Bigcommerce\Listeners\BootstrapAdminMenu',
+        ],
+
         'App\Events\UserRegistered' => [
-            'Modules\BigCommerce\Listeners\LinkCustomerToCart',
+            'Modules\Bigcommerce\Listeners\LinkCustomerToCart',
         ],
     ];
-
-    /**
-     * Perform post-registration booting of services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
-    /**
-     * Register bindings in the container.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        
-    }
 }

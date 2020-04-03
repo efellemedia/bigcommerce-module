@@ -19,7 +19,7 @@ class ProductReviewController extends DataTableController
 {
     public function builder()
     {
-        if (request()->has('product')) {
+        if (request()->route('product')) {
             return Product::find(request()->route('product'))->reviews()->getQuery();
         } else {
             return ProductReview::query();
@@ -32,7 +32,6 @@ class ProductReviewController extends DataTableController
             'name',
             'title',
             'text',
-            'status',
             'rating',
             'date_created'
         ];
@@ -66,7 +65,6 @@ class ProductReviewController extends DataTableController
             'title'         => 'Reviewer',
             'text'          => 'Review',
             'rating'        => 'Rating',
-            'status'        => ' ',
             'date_created'  => 'Created',
         ];
     }

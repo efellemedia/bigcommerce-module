@@ -4,6 +4,7 @@ export default [
         component: require('./views/Dashboard').default,
         name: 'bigcommerce',
         meta: {
+            requiresAuth: true,
             layout: 'admin'
         }
     },
@@ -12,6 +13,7 @@ export default [
         component: require('./views/Categories/Index').default,
         name: 'bigcommerce.categories',
         meta: {
+            requiresAuth: true,
             layout: 'admin'
         }
     },
@@ -25,6 +27,7 @@ export default [
             return props
         },
         meta: {
+            requiresAuth: true,
             layout: 'admin'
         }
     },
@@ -33,6 +36,7 @@ export default [
         component: require('./views/Products/Index').default,
         name: 'bigcommerce.products',
         meta: {
+            requiresAuth: true,
             layout: 'admin'
         }
     },
@@ -46,6 +50,7 @@ export default [
             return props
         },
         meta: {
+            requiresAuth: true,
             layout: 'admin'
         }
     }

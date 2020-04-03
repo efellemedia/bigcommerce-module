@@ -11,12 +11,13 @@
 
 namespace Modules\Bigcommerce\Models;
 
-use App\Foundation\Concerns\CachesQueries;
-use App\Foundation\Database\Eloquent\Model;
+use App\Concerns\IsSearchable;
+use App\Concerns\CachesQueries;
+use App\Database\Eloquent\Model;
 
 class ProductReview extends Model
 {
-    use CachesQueries;
+    use CachesQueries, IsSearchable;
 
     /**
      * The table associated with the model.

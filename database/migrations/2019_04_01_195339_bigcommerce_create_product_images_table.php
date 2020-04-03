@@ -14,8 +14,8 @@ class BigCommerceCreateProductImagesTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_images', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
             $table->string('description')->nullable();
             $table->unsignedInteger('sort_order');
             $table->boolean('is_thumbnail');

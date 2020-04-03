@@ -14,8 +14,8 @@ class BigCommerceCreateProductOptionValuesTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_option_values', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('option_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('option_id');
             $table->string('label');
             $table->text('value_data')->nullable();
             $table->boolean('is_default');
