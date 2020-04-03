@@ -14,10 +14,10 @@ class BigCommerceCreateProductVariantsTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_variants', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('option_id')->nullable();
-            $table->unsignedInteger('option_value_id')->nullable();
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
+            $table->unsignedBigInteger('option_id')->nullable();
+            $table->unsignedBigInteger('option_value_id')->nullable();
             $table->string('sku');
 
             $table->unsignedInteger('weight')->nullable();

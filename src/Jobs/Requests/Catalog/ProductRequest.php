@@ -12,6 +12,7 @@
 namespace Modules\Bigcommerce\Jobs\Requests\Catalog;
 
 use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -139,7 +140,7 @@ class ProductRequest implements ShouldQueue
         Product::updateOrCreate([ 'id' => $item->id ],
             [
                 'name'                    => $item->name,
-                'slug'                    => str_slug($item->name),
+                'slug'                    => Str::slug($item->name),
                 'description'             => $item->description,
                 'sku'                     => $item->sku,
                 'is_visible'              => (bool) $item->is_visible,

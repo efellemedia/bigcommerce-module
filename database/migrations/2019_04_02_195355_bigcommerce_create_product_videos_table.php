@@ -14,8 +14,8 @@ class BigCommerceCreateProductVideosTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_videos', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
             $table->string('type');
             $table->string('video_id');
             $table->string('title');

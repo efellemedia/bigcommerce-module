@@ -5,6 +5,7 @@ namespace Modules\Bigcommerce\Traits;
 use Cache;
 use Closure;
 use Exception;
+use Illuminate\Support\Arr;
 use GuzzleHttp\Client as GuzzleHttpClient;
 
 trait Requestable {
@@ -232,7 +233,7 @@ trait Requestable {
      */
     private function generateCacheKey($uri, array $options = [])
     {
-        $options = array_dot($options);
+        $options = Arr::dot($options);
         $options = array_filter($options);
 
         if (count($options) > 0) {

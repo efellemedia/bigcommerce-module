@@ -13,8 +13,8 @@ namespace Modules\Bigcommerce\Models;
 
 use App\Models\User;
 use Firebase\JWT\JWT;
-use App\Foundation\Concerns\CachesQueries;
-use App\Foundation\Database\Eloquent\Model;
+use App\Concerns\CachesQueries;
+use App\Database\Eloquent\Model;
 use Modules\Bigcommerce\Facades\Customer as CustomerSupport;
 
 class Customer extends Model

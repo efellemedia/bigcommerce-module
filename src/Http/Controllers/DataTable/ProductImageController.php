@@ -12,57 +12,49 @@
 namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
 use Modules\Bigcommerce\Models\Product;
-use Modules\Bigcommerce\Models\Category;
+use Modules\Bigcommerce\Models\ProductImage;
 use App\Http\Controllers\DataTableController;
 
-class CategoryProductController extends DataTableController
+class ProductImageController extends DataTableController
 {
     public function builder()
     {
-        if (request()->has('product')) {
-            return Category::find(request()->route('category'))->products()->getQuery();
+        if (request()->route('product')) {
+            return Product::find(request()->route('product'))->images()->getQuery();
         } else {
-            return Product::query();
+            return ProductImage::query();
         }
     }
 
     public function getDisplayableColumns()
     {
         return [
-            'name',
-            'sku',
-            'is_featured',
-            'is_visible',
+            'url_standard',
+            'description',
+            'is_thumbnail',
         ];
     }
 
     public function getFilterable()
     {
         return [
-            'name',
-            'sku',
-            'is_featured',
-            'is_visible',
+            'description',
         ];
     }
 
     public function getSortable()
     {
         return [
-            'name',
-            'sku',
-            'is_featured',
-            'is_visible',
+            
         ];
     }
 
     public function getCustomColumnNames()
     {
         return [
-            'name'        => 'Name',
-            'sku'         => 'SKU',
-            'is_featured' => ' ',
-            'is_visible'  => ' ',
+            'url_standard' => ' ',
+            'description'  => 'Description',
+            'is_thumbnail' => ' ',
         ];
     }
 }

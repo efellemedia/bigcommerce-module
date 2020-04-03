@@ -10,6 +10,7 @@
  */
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 use Modules\Bigcommerce\Models\Product;
 
 /*
@@ -40,7 +41,7 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'id'               => $order++,
         'name'             => $name,
-        'slug'             => str_slug($name),
+        'slug'             => Str::slug($name),
         'description'      => $faker->text,
         'sku'              => $faker->isbn10,
         'is_visible'       => true,

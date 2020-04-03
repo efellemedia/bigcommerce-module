@@ -14,8 +14,8 @@ class BigCommerceCreateProductModifiersTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_modifiers', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
             $table->string('name');
             $table->string('display_name');
             $table->string('type');

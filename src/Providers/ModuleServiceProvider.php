@@ -37,7 +37,6 @@ class ModuleServiceProvider extends ServiceProvider
     {
         $this->app->register(CommandServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
-        $this->app->register(MenuServiceProvider::class);
         $this->app->register(SupportServiceProvider::class);
         $this->app->register(RouteServiceProvider::class);
 

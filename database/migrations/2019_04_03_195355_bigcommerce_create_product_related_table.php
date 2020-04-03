@@ -14,8 +14,8 @@ class BigCommerceCreateProductRelatedTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_related', function (Blueprint $table) {
-            $table->unsignedInteger('product_id')->index();
-            $table->unsignedInteger('related_id')->index();
+            $table->unsignedBigInteger('product_id')->index();
+            $table->unsignedBigInteger('related_id')->index();
 
             // Indexes..
             $table->primary(['product_id', 'related_id']);

@@ -14,8 +14,8 @@ class BigCommerceCreateProductCustomFieldsTable extends Migration
     public function up()
     {
         Schema::create('bigcommerce_product_custom_fields', function (Blueprint $table) {
-            $table->unsignedInteger('id');
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('id');
+            $table->unsignedBigInteger('product_id');
             $table->string('name');
             $table->string('value');
             $table->timestamps();

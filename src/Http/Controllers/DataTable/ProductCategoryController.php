@@ -11,26 +11,36 @@
 
 namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
+use Illuminate\Http\Request;
+use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Models\Category;
 use App\Http\Controllers\DataTableController;
+use Spatie\QueryBuilder\{AllowedFilter,QueryBuilder};
 
-class CategoryController extends DataTableController
+class ProductCategoryController extends DataTableController
 {
     public function builder()
     {
-        if (request()->route('product')) {
-            return Product::find(request()->route('product'))->categories()->getQuery();
-        } else {
-            return Category::query();
-        }
+        return QueryBuilder::for(Category::class)
+            ->allowedFilters([
+                implode(',', self::getFilterable()),
+                AllowedFilter::exact('products.id')->default(request()->route('product'))
+            ])
+            ->allowedFields(self::getDisplayableColumns())
+            ->allowedIncludes('products')
+            ->allowedSorts(self::getSortable())
+            ->defaultSort('name');
+    }
+
+    protected function getRecords(Request $request)
+    {
+        return $this->builder->paginate(50);
     }
 
     public function getDisplayableColumns()
     {
         return [
-            'image_url',
             'name',
-            'description',
         ];
     }
 
@@ -38,7 +48,6 @@ class CategoryController extends DataTableController
     {
         return [
             'name',
-            'description',
         ];
     }
 
@@ -52,9 +61,7 @@ class CategoryController extends DataTableController
     public function getCustomColumnNames()
     {
         return [
-            'image_url'   => ' ',
-            'name'        => 'Name',
-            'description' => 'Description',
+            'name' => 'Name',
         ];
     }
 }

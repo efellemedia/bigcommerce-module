@@ -8,14 +8,16 @@
     "production": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "dependencies": {
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "laravel-mix": "^4.0.15",
-    "node-sass": "^4.11.0",
-    "tailwindcss": "^0.7.4",
-    "webpack": "^4.29.6"
+    "@tailwindcss/ui": "^0.1.2",
+    "laravel-mix": "^4.0.14",
+    "node-sass": "^4.11.0"
   },
   "devDependencies": {
-    "sass-loader": "7.*",
-    "vue-template-compiler": "^2.6.10"
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "tailwindcss": "^1.0",
+    "vue": "^2.5.22",
+    "vue-router": "^3.0.1",
+    "vue-template-compiler": "^2.5.22"
   }
 }
