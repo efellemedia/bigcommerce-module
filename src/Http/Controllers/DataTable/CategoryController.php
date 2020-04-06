@@ -11,6 +11,7 @@
 
 namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
+use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Models\Category;
 use App\Http\Controllers\DataTableController;
 

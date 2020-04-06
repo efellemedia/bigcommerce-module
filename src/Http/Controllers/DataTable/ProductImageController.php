@@ -45,7 +45,7 @@ class ProductImageController extends DataTableController
     public function getSortable()
     {
         return [
-            
+            'description'
         ];
     }
 
