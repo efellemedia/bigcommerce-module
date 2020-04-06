@@ -11,13 +11,12 @@
 
 namespace Modules\Bigcommerce\Models;
 
-use App\Concerns\IsSearchable;
 use App\Concerns\CachesQueries;
 use App\Database\Eloquent\Model;
 
 class ProductCustomField extends Model
 {
-    use CachesQueries, IsSearchable;
+    use CachesQueries;
 
     /**
      * The table associated with the model.

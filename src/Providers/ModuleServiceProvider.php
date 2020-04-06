@@ -44,10 +44,6 @@ class ModuleServiceProvider extends ServiceProvider
             return $user->hasOne(Customer::class);
         });
 
-        $this->publishes([
-            __DIR__ . '/../../public' => public_path('modules/bigcommerce'),
-        ], 'module');
-
         $this->app->singleton('requestor', function ($app) {
             return new Requestor;
         });
