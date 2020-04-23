@@ -12,7 +12,7 @@
 namespace Modules\Bigcommerce\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Fusion\Http\Controllers\Controller;
 use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Http\Resources\ProductResource;
 use Modules\Bigcommerce\Http\Resources\ProductVariantResource;

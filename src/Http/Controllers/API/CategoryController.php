@@ -12,9 +12,8 @@
 namespace Modules\Bigcommerce\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Fusion\Http\Controllers\Controller;
 use Modules\Bigcommerce\Models\Category;
-use Modules\Bigcommerce\Http\Resources\ProductResource;
 use Modules\Bigcommerce\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
@@ -23,7 +22,7 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      *
      * @param  Request  $request
-     * @return JsonResource
+     * @return CategoryResource
      */
     public function index(Request $request)
     {
@@ -37,10 +36,24 @@ class CategoryController extends Controller
      *
      * @param  Request  $request
      * @param  Category $category
-     * @return JsonResource
+     * @return CategoryResource
      */
     public function show(Request $request, Category $category)
     {
+        return new CategoryResource($category);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Request   $request
+     * @param  Category  $category
+     * @return CategoryResource
+     */
+    public function update(Request $request, Category $category)
+    {
+        $category->touch();
+        
         return new CategoryResource($category);
     }
 }

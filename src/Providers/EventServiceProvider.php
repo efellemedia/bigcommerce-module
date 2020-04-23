@@ -12,11 +12,7 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\ServingFusion' => [
-            'Modules\Bigcommerce\Listeners\BootstrapAdminMenu',
-        ],
-
-        'App\Events\UserRegistered' => [
+        'Fusion\Events\UserRegistered' => [
             'Modules\Bigcommerce\Listeners\LinkCustomerToCart',
         ],
     ];

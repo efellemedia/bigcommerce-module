@@ -3,7 +3,7 @@
 namespace Modules\Bigcommerce\Listeners;
 
 use Exception;
-use App\Events\UserRegistered;
+use Fusion\Events\UserRegistered;
 use Illuminate\Support\Facades\Log;
 use Modules\Bigcommerce\Facades\Cart;
 
