@@ -8,6 +8,6 @@ mix.setPublicPath('public')
     .options({
         processCssUrls: false,
         postCss: [
-            tailwindcss('../../resources/tailwind.js')
+            tailwindcss('../../../fusion/resources/tailwind.js')
         ]
     })

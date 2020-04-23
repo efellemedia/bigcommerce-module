@@ -21,7 +21,7 @@ class Sync extends Command
      *
      * @var string
      */
-    protected $description = 'Sync BigCommerce categories, products, and product records with FusionCMS.';
+    protected $description = 'Sync BigCommerce products, and product records with FusionCMS.';
 
     /**
      * Execute the console command.
@@ -36,7 +36,6 @@ class Sync extends Command
 
         switch ($model) {
             case 'store':
-            case 'category':
             case 'product':
             case 'variant':
             case 'customer':
@@ -65,11 +64,6 @@ class Sync extends Command
             case 'store':
                 $this->fire([
                     'Requesting store settings...' => new \Modules\Bigcommerce\Jobs\Requests\Store\SettingsRequest,
-                ]);
-                break;
-            case 'category':
-                $this->fire([
-                    'Requesting category...' => new \Modules\Bigcommerce\Jobs\Requests\Catalog\CategoryRequest($id)
                 ]);
                 break;
             case 'product':
@@ -103,7 +97,6 @@ class Sync extends Command
     private function syncAll()
     {
         $this->fire([
-            'Requesting categories...'       => new \Modules\Bigcommerce\Jobs\Requests\Catalog\CategoryRequest,
             'Requesting products...'         => new \Modules\Bigcommerce\Jobs\Requests\Catalog\ProductRequest,
             'Requesting customer data...'    => new \Modules\Bigcommerce\Jobs\Requests\Customer\CustomerRequest,
         ]);
