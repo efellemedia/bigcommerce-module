@@ -47,17 +47,6 @@ class Product extends Model
     }
 
     /**
-     * Category relationship.
-     * Many to Many
-     * 
-     * @return mixed
-     */
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'bigcommerce_category_product');
-    }
-
-    /**
      * Related relationship.
      * Many to Many
      * 

@@ -15,10 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Models\Variant;
-use Modules\Bigcommerce\Models\Category;
-use Modules\Bigcommerce\Jobs\Requests\Store\SettingsRequest;
 use Modules\Bigcommerce\Jobs\Requests\Catalog\ProductRequest;
-use Modules\Bigcommerce\Jobs\Requests\Catalog\CategoryRequest;
 use Modules\Bigcommerce\Jobs\Requests\Customer\CustomerRequest;
 use Modules\Bigcommerce\Jobs\Requests\Catalog\ProductVariantRequest;
 
@@ -43,66 +40,6 @@ class WebhookController
         }
 
         return response('Webhook handler does not exist.', 404);
-    }
-
-    /**
-     * Handle webhook event.
-     * store/category/created
-     * 
-     * @param  array $payload
-     * @return Response
-     */
-    protected function whenStoreCategoryCreated($payload)
-    {
-        try {
-            dispatch_now(new CategoryRequest($payload['data']['id']));
-
-            return response('Webhook handled.');
-        } catch (Exception $exception) {
-            $this->webhookFailed($exception);
-        }
-
-        return response('Unable to complete request. Please review logs.', 500);
-    }
-
-    /**
-     * Handle webhook event.
-     * store/category/updated
-     * 
-     * @param  array $payload
-     * @return Response
-     */
-    protected function whenStoreCategoryUpdated($payload)
-    {
-        try {
-            dispatch_now(new CategoryRequest($payload['data']['id']));
-
-            return response('Webhook handled.');
-        } catch (Exception $exception) {
-            $this->webhookFailed($exception);
-        }
-
-        return response('Unable to complete request. Please review logs.', 500);
-    }
-
-    /**
-     * Handle webhook event.
-     * store/category/deleted
-     * 
-     * @param  array $payload
-     * @return Response
-     */
-    protected function whenStoreCategoryDeleted($payload)
-    {
-        try {
-            Category::destroy($payload['data']['id']);
-
-            return response('Webhook handled.');
-        } catch (Exception $exception) {
-            $this->webhookFailed($exception);
-        }
-
-        return response('Unable to complete request. Please review logs.', 500);
     }
 
     /**
@@ -345,26 +282,6 @@ class WebhookController
                 $user->bigcommerce_customer_id = 0;
                 $user->save();
             }
-
-            return response('Webhook handled.');
-        } catch (Exception $exception) {
-            $this->webhookFailed($exception);
-        }
-
-        return response('Unable to complete request. Please review logs.', 500);
-    }
-
-    /**
-     * Handle webhook event.
-     * store/information/deleted
-     * 
-     * @param  array $payload
-     * @return Response
-     */
-    protected function whenStoreInformationUpdated($payload)
-    {
-        try {
-            dispatch_now(new SettingRequest);
 
             return response('Webhook handled.');
         } catch (Exception $exception) {

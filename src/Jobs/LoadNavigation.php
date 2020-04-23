@@ -18,20 +18,8 @@ class LoadNavigation
     {
         if ($menu = Menu::get('admin')) {
             $menu->add('BigCommerce')->data([
-                'to'    => '/bigcommerce',
+                'to'    => '/bigcommerce/products',
                 'icon'  => 'shopping-cart'
-            ]);
-
-            $menu->bigcommerce->add('Dashboard')->data([
-                'to' => '/bigcommerce',
-            ]);
-            
-            $menu->bigcommerce->add('Products')->data([
-                'to' => '/bigcommerce/products',
-            ]);
-
-            $menu->bigcommerce->add('Categories')->data([
-                'to' => '/bigcommerce/categories',
             ]);
         }
     }

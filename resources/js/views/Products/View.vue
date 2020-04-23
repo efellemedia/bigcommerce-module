@@ -30,10 +30,6 @@
                         <product-images :endpoint="endpoint.images"></product-images>
                     </p-tab>
 
-                    <p-tab key="categories" name="Categories">
-                        <product-categories :endpoint="endpoint.categories"></product-categories>
-                    </p-tab>
-
                     <p-tab key="related" name="Related">
                         <product-related :endpoint="endpoint.related"></product-related>
                     </p-tab>
@@ -107,7 +103,6 @@
             return {
                 data: {},
                 endpoint: {
-                    categories:   `/datatable/bigcommerce/products/${this.id}/categories`,
                     reviews:      `/datatable/bigcommerce/products/${this.id}/reviews`,
                     related:      `/datatable/bigcommerce/products/${this.id}/related`,
                     images:       `/datatable/bigcommerce/products/${this.id}/images`,
@@ -117,7 +112,6 @@
         },
 
         components: {
-            'product-categories':    require('../../components/datatables/ProductCategory.vue').default,
             'product-images':        require('../../components/datatables/ProductImage.vue').default,
             'product-related':       require('../../components/datatables/ProductRelated.vue').default,
             'product-reviews':       require('../../components/datatables/ProductReview.vue').default,

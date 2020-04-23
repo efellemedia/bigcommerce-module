@@ -159,10 +159,7 @@ class ProductRequest implements ShouldQueue
                 'inventory_tracking'      => $item->inventory_tracking,
             ]
         );
-
-        // Categories..
-        Product::find($item->id)->categories()->sync($item->categories);
-
+        
         // Images..
         collect($item->images)->each(function($data, $key) use ($item) {
             (new ProductImageRequest($item->id))->createOrUpdate($data);
