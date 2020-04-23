@@ -13,7 +13,7 @@ namespace Modules\Bigcommerce\Http\Controllers\DataTable;
 
 use Modules\Bigcommerce\Models\Product;
 use Modules\Bigcommerce\Models\Category;
-use App\Http\Controllers\DataTableController;
+use Fusion\Http\Controllers\DataTableController;
 
 class CategoryController extends DataTableController
 {

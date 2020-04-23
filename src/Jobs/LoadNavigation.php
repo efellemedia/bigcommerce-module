@@ -1,18 +1,17 @@
 <?php
 
-namespace Modules\Bigcommerce\Listeners;
+namespace Modules\Bigcommerce\Jobs;
 
 use Menu;
-use Exception;
-use App\Events\ServingFusion;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Foundation\Bus\Dispatchable;
 
-class BootstrapAdminMenu
+class LoadNavigation
 {
+    use Dispatchable;
+
     /**
-     * Handle the event.
+     * Execute the job.
      *
-     * @param  ServingFusion $event
      * @return void
      */
     public function handle()
@@ -35,20 +34,5 @@ class BootstrapAdminMenu
                 'to' => '/bigcommerce/categories',
             ]);
         }
-    }
-
-    /**
-     * Handle a job failure.
-     *
-     * @param  ServingFusion $event
-     * @param  Exception     $exception
-     * @return void
-     */
-    public function failed(ServingFusion $event, Exception $exception)
-    {
-        Log::error('[Event Listener]', [
-            'event'   => __CLASS__,
-            'message' => $exception->getMessage()
-        ]);
     }
 }

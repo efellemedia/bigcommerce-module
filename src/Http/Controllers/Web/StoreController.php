@@ -11,7 +11,7 @@
 
 namespace Modules\Bigcommerce\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
+use Fusion\Http\Controllers\Controller;
 use Modules\Bigcommerce\Models\Product;
 
 class StoreController extends Controller

@@ -12,7 +12,7 @@
 namespace Modules\Bigcommerce\Jobs\Requests\Customer;
 
 use Exception;
-use App\Models\User;
+use Fusion\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;

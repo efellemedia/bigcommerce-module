@@ -11,6 +11,7 @@
 
 namespace Modules\Bigcommerce\Http\Resources;
 
+use Fusion\Http\Resources\FieldsetResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -36,7 +37,7 @@ class CategoryResource extends JsonResource
             'children' => false or in_array('children', $inclusions),
         ];
 
-        return [
+        $resource = [
             'id'          => (int) $this->id,
             'name'        => $this->name,
             'description' => $this->description,
@@ -44,8 +45,19 @@ class CategoryResource extends JsonResource
             'is_visible'  => (bool) $this->is_visible,
             
             // Relationships
-            'parent'      => $this->when($relationships['parent'], new CategoryResource($this->parent)),
+            'parent'      => $this->when($relationships['parent'], $this->parent),
             'children'    => $this->when($relationships['children'], CategoryResource::collection($this->children)),
         ];
+
+        // Fieldset
+        if ($this->fieldset) {
+            $resource['fieldset'] = new FieldsetResource($this->fieldset);
+
+            foreach ($this->fields as $field) {
+                $resource[$field->handle] = $this->extension->{$field->handle} ?? $field->default;
+            }
+        }
+
+        return $resource;
     }
 }

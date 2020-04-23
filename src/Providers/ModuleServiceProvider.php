@@ -4,7 +4,7 @@ namespace Modules\Bigcommerce\Providers;
 
 use Menu;
 use Bonsai;
-use App\Models\User;
+use Fusion\Models\User;
 use Modules\Bigcommerce\Jobs\Requestor;
 use Modules\Bigcommerce\Models\Customer;
 use Caffeinated\Modules\Support\ServiceProvider;

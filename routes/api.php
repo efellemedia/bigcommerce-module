@@ -15,9 +15,14 @@ use Illuminate\Http\Request;
 
 Route::get('/bigcommerce/categories', 'CategoryController@index');
 Route::get('/bigcommerce/categories/{category}', 'CategoryController@show');
+Route::patch('/bigcommerce/categories/{category}', 'CategoryController@update');
 
 Route::get('/bigcommerce/products', 'ProductController@index');
 Route::get('/bigcommerce/products/{product}', 'ProductController@show');
+
+Route::group(['prefix' => '/bigcommerce/settings'], function() {
+	Route::patch('fieldsets', 'Settings\FieldsetController@update');
+});
 
 // Customer endpoints
 Route::group(['prefix' => '/bigcommerce/customers'], function() {

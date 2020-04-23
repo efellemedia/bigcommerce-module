@@ -3,11 +3,12 @@
         <portal to="actions">
             <div class="buttons">
                 <router-link :to="{ name: 'bigcommerce.categories' }" class="button">Go Back</router-link>
+                <button type="submit" @click.prevent="submit" class="button button--primary" :class="{'button--disabled': !form.hasChanges}" :disabled="!form.hasChanges">Save</button>
             </div>
         </portal>
 
         <portal to="title">
-            <app-title icon="paper-plane">BigCommerce - {{ data.name }}</app-title>
+            <app-title icon="paper-plane">BigCommerce - {{ category.name }}</app-title>
         </portal>
 
         <div class="card">
@@ -15,29 +16,29 @@
                 <p-title
                     name="name"
                     :readonly="true"
-                    v-model="data.name">
+                    v-model="category.name">
                 </p-title>
 
-                <p-textarea
+                <redactor
                     label="Description"
                     name="description"
                     :readonly="true"
-                    v-model="data.description">
-                </p-textarea>
+                    v-model="category.description">
+                </redactor>
 
-                <div v-if="data.parent" class="toolbar">
+                <div v-if="category.parent" class="toolbar">
                     <div class="toolbar__group toolbar__group--grow">
                         <p-input
                             class="w-full"
                             label="Parent"
                             name="parent"
                             :readonly="true"
-                            :value="data.parent.name">
+                            :value="category.parent.name">
                         </p-input>
                     </div>
 
                     <div class="toolbar__group">
-                        <router-link class="button mr-3" :to="{ name: 'bigcommerce.categories.view', params: { id: data.parent.id }}">
+                        <router-link class="button mr-3" :to="{ name: 'bigcommerce.categories.view', params: { id: category.parent.id }}">
                             Go to Parent
                         </router-link>
                     </div>
@@ -70,33 +71,61 @@
 
                         </p-table>
                     </p-tab>
+
+                    <p-tab v-for="section in bodySections" :name="section.name" :key="section.handle">
+                        <div v-for="field in section.fields" :key="field.handle" class="form__group">
+                            <component
+                                :is="field.type.id + '-fieldtype'"
+                                :field="field"
+                                v-model="form[field.handle]">
+                            </component>
+                        </div>
+                    </p-tab>
+
                 </p-tabs>
             </div>
         </div>
 
         <template v-slot:sidebar>
-            <div v-if="data.image_url" class="card">
+            <div v-if="category.image_url" class="card">
                 <div class="card__body">
                     <p-img
                         class="mx-auto"
                         background-color="white"
-                        :src="data.image_url"
-                        :alt="data.name">
+                        :src="category.image_url"
+                        :alt="category.name">
                     </p-img>
                 </div>
             </div>
 
-            <p-definition-list v-if="data">
+            <div class="card" v-for="section in sideSections" :key="section.handle">
+                <div class="card__header">
+                    <h3 class="card__title">{{ section.name }}</h3>
+                    <p v-if="section.description" class="card__subtitle">{{ section.description }}</p>
+                </div>
+
+                <div class="card__body">
+                    <component
+                        :is="field.type.id + '-fieldtype'"
+                        :field="field"
+                        v-model="form[field.handle]"
+                        v-for="field in section.fields"
+                        :key="field.handle">
+                    </component>
+                </div>
+            </div>
+
+            <p-definition-list v-if="category">
                 <p-definition name="Status">
-                    <fa-icon :icon="['fas', 'circle']" class="fa-fw text-xs" :class="{'text-success-500': data.is_visible, 'text-danger-500': ! data.is_visible}"></fa-icon> {{ data.is_visible ? 'Visible' : 'Hidden' }}
+                    <fa-icon :icon="['fas', 'circle']" class="fa-fw text-xs" :class="{'text-success-500': category.is_visible, 'text-danger-500': ! category.is_visible}"></fa-icon> {{ category.is_visible ? 'Visible' : 'Hidden' }}
                 </p-definition>
 
                 <p-definition name="Created At">
-                    {{ $moment(data.created_at).format('Y-MM-DD, hh:mm a') }}
+                    {{ $moment(category.created_at).format('Y-MM-DD, hh:mm a') }}
                 </p-definition>
 
                 <p-definition name="Updated At">
-                    {{ $moment(data.updated_at).format('Y-MM-DD, hh:mm a') }}
+                    {{ $moment(category.updated_at).format('Y-MM-DD, hh:mm a') }}
                 </p-definition>
             </p-definition-list>
         </template>
@@ -104,18 +133,22 @@
 </template>
 
 <script>
+    import Form from '../../../../../../resources/js/forms/Form'
+
     export default {
         head: {
             title() {
                 return {
-                    inner: this.data.name || 'Loading...'
+                    inner: this.category.name || 'Loading...'
                 }
             }
         },
 
         data() {
             return {
-                data: {},
+                category: {},
+                fields: {},
+                form: new Form({}),
                 endpoint: `/datatable/bigcommerce/categories/${this.id}/products`
             }
         },
@@ -127,8 +160,25 @@
             }
         },
 
+        computed: {
+            fieldset() { return this.category ? this.category.fieldset : null },
+            sections() { return this.fieldset ? this.fieldset.sections : [] },
+            bodySections() { return _.filter(this.sections, (section) => section.placement == 'body') },
+            sideSections() { return _.filter(this.sections, (section) => section.placement == 'sidebar') },
+        },
+
+        methods: {
+            submit() {
+                this.form.patch(`/api/bigcommerce/categories/${this.id}`).then((response) => {
+                    toast('Category saved successfully', 'success')
+                }).catch((response) => {
+                    toast(response.response.data.message, 'failed')
+                })
+            },
+        },
+
         beforeRouteEnter(to, from, next) {
-            getRecord(to.params.id, (error, data) => {
+            getRecord(to.params.id, (error, category, fields) => {
                 if (error) {
                     next((vm) => {
                         vm.$router.push('/bigcommerce/categories')
@@ -137,24 +187,28 @@
                     })
                 } else {
                     next((vm) => {
-                        vm.data = data
+                        vm.category = category
+                        vm.form     = new Form(fields, true)
 
                         vm.$emit('updateHead')
+                        vm.form.resetChangeListener()
                     })
                 }
             })
         },
 
         beforeRouteUpdate(to, from, next) {
-            getRecord(to.params.id, (error, data) => {
+            getRecord(to.params.id, (error, category, fields) => {
                 if (error) {
                     this.$router.push('/bigcommerce/categories')
 
                     toast(error.toString(), 'danger')
                 } else {
-                    this.data = data
+                    this.category = category
+                    this.form     = new Form(fields, true)
 
                     this.$emit('updateHead')
+                    this.form.resetChangeListener()
                 }
             })
 
@@ -164,7 +218,18 @@
 
     export function getRecord(id, callback) {
         axios.get(`/api/bigcommerce/categories/${id}`).then((response) => {
-            callback(null, response.data.data)
+            let category = response.data.data
+            let fields   = {}
+
+            if (category.fieldset) {
+                _.forEach(category.fieldset.sections, (section) => {
+                    _.forEach(section.fields, (field) => {
+                        fields[field.handle] = category[field.handle] || field.default
+                    })
+                })
+            }
+
+            callback(null, category, fields)
         }).catch(function(error) {
             callback(new Error('The requested entry could not be found'))
         })

@@ -18,7 +18,7 @@ class BigcommerceUserTest extends TestCase
      */
     public function a_user_has_a_customer_profile()
     {
-        $user = factory('App\Models\User')->create();
+        $user = factory('Fusion\Models\User')->create();
 
         $this->assertInstanceOf(HasOne::class, $user->customer());
         $this->assertInstanceOf(Customer::class, $user->customer()->getRelated());

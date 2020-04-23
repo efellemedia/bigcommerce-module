@@ -9,6 +9,15 @@ export default [
         }
     },
     {
+        path: '/bigcommerce/install',
+        component: require('./views/Install/Index').default,
+        name: 'bigcommerce',
+        meta: {
+            requiresAuth: true,
+            layout: 'admin'
+        }
+    },
+    {
         path: '/bigcommerce/categories',
         component: require('./views/Categories/Index').default,
         name: 'bigcommerce.categories',

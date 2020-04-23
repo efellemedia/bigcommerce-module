@@ -12,7 +12,7 @@
 namespace Modules\Bigcommerce\Http\Controllers\Web;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Fusion\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
 {
