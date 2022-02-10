@@ -10,7 +10,7 @@
   "dependencies": {
     "@tailwindcss/ui": "^0.1.2",
     "laravel-mix": "^4.0.14",
-    "node-sass": "^4.11.0"
+    "node-sass": "^7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
